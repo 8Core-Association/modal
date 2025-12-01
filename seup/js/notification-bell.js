@@ -43,11 +43,13 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
             badge.style.display = 'flex';
             badge.setAttribute('data-count', count);
             bell.classList.add('has-notifications');
+            bell.style.display = 'flex';
         } else {
             badge.textContent = '0';
             badge.style.display = 'none';
             badge.setAttribute('data-count', '0');
             bell.classList.remove('has-notifications');
+            bell.style.display = 'none';
         }
     }
 
