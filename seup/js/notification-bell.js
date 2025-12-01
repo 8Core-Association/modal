@@ -44,6 +44,8 @@
     }
 
     function handleBellClick() {
+        console.log('🔔 Bell clicked!');
+
         const bellIcon = document.querySelector('.bell-icon');
         if (bellIcon) {
             bellIcon.style.animation = 'none';
@@ -56,14 +58,18 @@
     }
 
     function showNotificationModal() {
+        console.log('🚀 showNotificationModal() called');
+
         let existingModal = document.getElementById('seupNotificationModal');
         if (existingModal) {
+            console.log('🗑️ Removing existing modal');
             existingModal.remove();
         }
 
         const modal = document.createElement('div');
         modal.id = 'seupNotificationModal';
         modal.className = 'seup-notification-modal';
+        console.log('📦 Modal element created:', modal);
         modal.innerHTML = `
             <div class="seup-notification-modal-overlay"></div>
             <div class="seup-notification-modal-content">
@@ -86,9 +92,11 @@
         `;
 
         document.body.appendChild(modal);
+        console.log('✅ Modal appended to body');
 
         setTimeout(() => modal.classList.add('show'), 10);
 
+        console.log('🎯 Binding event listener to modal...');
         modal.addEventListener('click', function(e) {
             console.log('🔔 Modal clicked:', e.target);
 
@@ -331,11 +339,14 @@
     }
 
     if (document.readyState === 'loading') {
+        console.log('⏳ Document loading, waiting for DOMContentLoaded...');
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOMContentLoaded fired, initializing bell...');
             initNotificationBell();
             startAutoRefresh();
         });
     } else {
+        console.log('✅ Document already loaded, initializing bell...');
         initNotificationBell();
         startAutoRefresh();
     }
