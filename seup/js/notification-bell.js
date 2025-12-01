@@ -69,16 +69,16 @@
             <div class="seup-notification-modal-content">
                 <div class="seup-notification-modal-header">
                     <h3><i class="fas fa-bell"></i> Obavjesti</h3>
-                    <button class="seup-notification-close"><i class="fas fa-times"></i></button>
+                    <button type="button" class="seup-notification-close"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="seup-notification-modal-body" id="notificationsList">
                     ${renderNotifications()}
                 </div>
                 <div class="seup-notification-modal-footer">
-                    <button class="seup-btn seup-btn-sm seup-btn-secondary" id="markAllRead">
+                    <button type="button" class="seup-btn seup-btn-sm seup-btn-secondary" id="markAllRead">
                         <i class="fas fa-check-double"></i> Označi sve pročitanim
                     </button>
-                    <button class="seup-btn seup-btn-sm seup-btn-danger" id="deleteAll">
+                    <button type="button" class="seup-btn seup-btn-sm seup-btn-danger" id="deleteAll">
                         <i class="fas fa-trash-alt"></i> Obriši sve
                     </button>
                 </div>
@@ -89,10 +89,26 @@
 
         setTimeout(() => modal.classList.add('show'), 10);
 
-        modal.querySelector('.seup-notification-close').addEventListener('click', closeModal);
-        modal.querySelector('.seup-notification-modal-overlay').addEventListener('click', closeModal);
-        modal.querySelector('#markAllRead').addEventListener('click', markAllAsRead);
-        modal.querySelector('#deleteAll').addEventListener('click', deleteAllNotifications);
+        modal.querySelector('.seup-notification-close').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+        });
+        modal.querySelector('.seup-notification-modal-overlay').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+        });
+        modal.querySelector('#markAllRead').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            markAllAsRead();
+        });
+        modal.querySelector('#deleteAll').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            deleteAllNotifications();
+        });
 
         setupEventDelegation(modal);
     }
@@ -129,10 +145,10 @@
                         </div>
                     ` : ''}
                     <div class="seup-notification-actions">
-                        <button class="seup-btn seup-btn-xs seup-btn-outline-primary mark-read-btn" data-id="${notification.id}">
+                        <button type="button" class="seup-btn seup-btn-xs seup-btn-outline-primary mark-read-btn" data-id="${notification.id}">
                             <i class="fas fa-check"></i> Označi pročitano
                         </button>
-                        <button class="seup-btn seup-btn-xs seup-btn-outline-danger delete-btn" data-id="${notification.id}">
+                        <button type="button" class="seup-btn seup-btn-xs seup-btn-outline-danger delete-btn" data-id="${notification.id}">
                             <i class="fas fa-trash"></i> Obriši
                         </button>
                     </div>
