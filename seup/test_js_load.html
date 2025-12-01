@@ -2,13 +2,23 @@
 <html>
 <head>
     <title>Test JS Load</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/notification-bell.css">
 </head>
 <body>
     <h1>Test JS Load</h1>
     <p>Open Console (F12) - You should see VERSION 2.0.0-DEBUG loaded!</p>
 
-    <button id="testButton" style="padding: 20px; font-size: 20px; background: yellow;">
-        Click Me to Test
+    <!-- SEUP Notification Bell -->
+    <div class="seup-notification-wrapper">
+        <div id="seupNotificationBell" class="seup-notification-bell">
+            <i class="fas fa-bell"></i>
+            <span id="notificationCount" class="badge">0</span>
+        </div>
+    </div>
+
+    <button id="testButton" style="padding: 20px; font-size: 20px; background: yellow; margin-top: 20px;">
+        Click Yellow Bell Above! ↑
     </button>
 
     <script>
