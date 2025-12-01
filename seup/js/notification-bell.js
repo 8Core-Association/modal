@@ -250,18 +250,19 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
                 if (data.success) {
                     const item = document.querySelector(`.seup-notification-item[data-id="${id}"]`);
                     if (item) {
-                        item.style.transition = 'opacity 0.3s ease';
-                        item.style.opacity = '0';
-                        setTimeout(() => {
-                            item.remove();
-                            loadNotifications();
+                        item.classList.add('read');
 
-                            const listContainer = document.getElementById('notificationsList');
-                            const remainingItems = listContainer.querySelectorAll('.seup-notification-item');
-                            if (remainingItems.length === 0) {
-                                listContainer.innerHTML = renderNotifications();
-                            }
-                        }, 300);
+                        const markBtn = item.querySelector('.mark-read-btn');
+                        if (markBtn) {
+                            markBtn.innerHTML = '<i class="fas fa-check-circle"></i> Pročitano';
+                            markBtn.classList.remove('seup-btn-outline-primary');
+                            markBtn.classList.add('seup-btn-outline-success');
+                            markBtn.disabled = true;
+                            markBtn.style.opacity = '0.6';
+                            markBtn.style.cursor = 'not-allowed';
+                        }
+
+                        loadNotifications();
                     }
                 }
             })
@@ -271,8 +272,6 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     }
 
     function markAllAsRead() {
-        if (!confirm('Označiti sve obavjesti kao pročitane?')) return;
-
         const ajaxUrl = getAjaxUrl('mark_all_read');
         fetch(ajaxUrl)
             .then(response => response.json())
@@ -288,8 +287,6 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     }
 
     function deleteNotification(id) {
-        if (!confirm('Obrisati ovu obavjest?')) return;
-
         const ajaxUrl = getAjaxUrl('delete') + '&id=' + id;
         fetch(ajaxUrl)
             .then(response => response.json())
@@ -318,8 +315,6 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     }
 
     function deleteAllNotifications() {
-        if (!confirm('Obrisati SVE obavjesti? Ova akcija se ne može poništiti.')) return;
-
         const ajaxUrl = getAjaxUrl('delete_all');
         fetch(ajaxUrl)
             .then(response => response.json())
