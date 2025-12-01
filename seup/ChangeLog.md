@@ -238,7 +238,7 @@ Dokumentacija ažurirana: README, struktura, changelog.
 
 ---
 
-## 4.2.6 – Database Auto-initialization (CURRENT)
+## 4.2.6 – Database Auto-initialization
 
 **Datum:** 27.11.2025
 
@@ -256,5 +256,62 @@ Dokumentacija ažurirana: README, struktura, changelog.
 - Dodan `CONSTRAINT fk_otprema_potvrda` s ON DELETE SET NULL
 - Dodan `CONSTRAINT fk_otprema_user` s ON DELETE RESTRICT
 - Ujednačena struktura između `llx_a_otprema.sql` i `predmet_helper.class.php`
+
+---
+
+## 5.0.0 – Notification System (CURRENT)
+
+**Datum:** 01.12.2025
+
+### Nova funkcionalnost - Sustav obavjesti
+- 🔔 **Notification Bell** - Dinamičko zvono u headeru s real-time brojem obavjesti
+- 💬 **Admin modul za obavjesti** - Kreiranje, slanje i upravljanje obavjestima (`/admin/obavjesti.php`)
+- 📊 **Sustav kategorija** - Info, Upozorenje, Nadogradnja, Hitno, Važno
+- 🎯 **Ciljanje korisnika** - Slanje obavjesti svim korisnicima ili pojedinačnim userima
+- 🔗 **Vanjski linkovi** - Mogućnost dodavanja vanjskih resursa u obavijesti
+- ✅ **Status tracking** - Praćenje pročitanih/nepročitanih obavjesti po korisniku
+
+### UI/UX Komponente
+- 🎨 **Moderni modal** - Elegantni popup s obavjestima, responsive dizajn
+- 🖱️ **Interaktivne akcije** - "Označi pročitano", "Obriši", "Označi sve pročitanim"
+- 🎭 **Vizualni feedback** - Promjena boje i stila kod oznake pročitano
+- 🔕 **Pametno skrivanje** - Zvono se automatski skriva kad nema obavjesti
+- 📱 **Responsive** - Optimiziran prikaz za desktop i mobile uređaje
+- ⚡ **Auto-refresh** - Automatsko učitavanje novih obavjesti svakih 30 sekundi
+
+### Database strukture
+- 📋 **llx_seup_obavjesti** - Glavna tablica za pohranu obavjesti
+  - `id`, `naslov`, `sadrzaj`, `subjekt`, `vanjski_link`
+  - `target_user_ids` (JSON array), `kreirao`, `datum_kreiranja`
+
+- 📋 **llx_seup_obavjesti_status** - Status pročitanosti po korisniku
+  - `id`, `obavjest_id`, `user_id`, `procitano`, `datum_procitano`
+  - Prati koji korisnik je pročitao koju obavijest
+
+### Backend komponente
+- 🔧 **obavjesti_helper.class.php** - Core logika za upravljanje obavjestima
+- 🔌 **obavjesti_ajax.php** - AJAX endpoint za sve operacije
+  - `get_notifications` - Dohvaćanje obavjesti za trenutnog korisnika
+  - `mark_read` - Označavanje pojedinačne obavijesti kao pročitane
+  - `mark_all_read` - Označavanje svih obavjesti kao pročitanih
+  - `delete` - Brisanje pojedinačne obavijesti
+  - `delete_all` - Brisanje svih obavjesti
+
+### Frontend komponente
+- 🎨 **notification-bell.css** - Stilovi za zvono, modal i obavijesti
+- ⚡ **notification-bell.js** - JavaScript logika, event handling, AJAX
+- 🧩 **Seup_modern.css integracija** - Ujednačen dizajn sustav
+
+### Sigurnosne značajke
+- 🔐 **User authentication** - Sve akcije verificiraju trenutnog korisnika
+- 🛡️ **SQL injection zaštita** - Prepared statements u svim upitima
+- 🧹 **XSS zaštita** - HTML escaping u prikazu sadržaja
+- ✅ **Permission checks** - Admin stranica zaštićena korisničkim pravima
+
+### Tehničke optimizacije
+- ⚡ **Optimizirani SQL upiti** - JOIN operacije za brže dohvaćanje
+- 💾 **Efficient data structure** - JSON format za target_user_ids
+- 🔄 **Cascade brisanje** - Automatsko čišćenje statusa pri brisanju obavijesti
+- 📊 **Indexi na ključnim poljima** - Brže pretraživanje i filtriranje
 
 ---
