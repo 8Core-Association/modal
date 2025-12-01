@@ -180,7 +180,7 @@
     }
 
     function loadNotifications() {
-        fetch('class/obavjesti_ajax.php?action=get_notifications')
+        fetch('/custom/seup/class/obavjesti_ajax.php?action=get_notifications')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -194,7 +194,7 @@
     }
 
     function markAsRead(id) {
-        fetch('class/obavjesti_ajax.php?action=mark_read&id=' + id)
+        fetch('/custom/seup/class/obavjesti_ajax.php?action=mark_read&id=' + id)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -221,7 +221,7 @@
     function markAllAsRead() {
         if (!confirm('Označiti sve obavjesti kao pročitane?')) return;
 
-        fetch('class/obavjesti_ajax.php?action=mark_all_read')
+        fetch('/custom/seup/class/obavjesti_ajax.php?action=mark_all_read')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -237,7 +237,7 @@
     function deleteNotification(id) {
         if (!confirm('Obrisati ovu obavjest?')) return;
 
-        fetch('class/obavjesti_ajax.php?action=delete&id=' + id)
+        fetch('/custom/seup/class/obavjesti_ajax.php?action=delete&id=' + id)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -264,7 +264,7 @@
     function deleteAllNotifications() {
         if (!confirm('Obrisati SVE obavjesti? Ova akcija se ne može poništiti.')) return;
 
-        fetch('class/obavjesti_ajax.php?action=delete_all')
+        fetch('/custom/seup/class/obavjesti_ajax.php?action=delete_all')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
