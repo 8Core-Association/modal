@@ -89,28 +89,60 @@
 
         setTimeout(() => modal.classList.add('show'), 10);
 
-        modal.querySelector('.seup-notification-close').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeModal();
-        });
-        modal.querySelector('.seup-notification-modal-overlay').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeModal();
-        });
-        modal.querySelector('#markAllRead').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            markAllAsRead();
-        });
-        modal.querySelector('#deleteAll').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            deleteAllNotifications();
-        });
+        modal.addEventListener('click', function(e) {
+            console.log('🔔 Modal clicked:', e.target);
 
-        setupEventDelegation(modal);
+            const closeBtn = e.target.closest('.seup-notification-close');
+            const overlay = e.target.classList.contains('seup-notification-modal-overlay');
+            const markAllBtn = e.target.closest('#markAllRead');
+            const deleteAllBtn = e.target.closest('#deleteAll');
+            const markReadBtn = e.target.closest('.mark-read-btn');
+            const deleteBtn = e.target.closest('.delete-btn');
+
+            if (closeBtn || overlay) {
+                console.log('✅ Close button or overlay clicked');
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal();
+                return;
+            }
+
+            if (markAllBtn) {
+                console.log('✅ Mark All Read clicked');
+                e.preventDefault();
+                e.stopPropagation();
+                markAllAsRead();
+                return;
+            }
+
+            if (deleteAllBtn) {
+                console.log('✅ Delete All clicked');
+                e.preventDefault();
+                e.stopPropagation();
+                deleteAllNotifications();
+                return;
+            }
+
+            if (markReadBtn) {
+                console.log('✅ Mark Read clicked, ID:', markReadBtn.getAttribute('data-id'));
+                e.preventDefault();
+                e.stopPropagation();
+                const id = markReadBtn.getAttribute('data-id');
+                markAsRead(id);
+                return;
+            }
+
+            if (deleteBtn) {
+                console.log('✅ Delete clicked, ID:', deleteBtn.getAttribute('data-id'));
+                e.preventDefault();
+                e.stopPropagation();
+                const id = deleteBtn.getAttribute('data-id');
+                deleteNotification(id);
+                return;
+            }
+
+            console.log('⚠️ No handler matched for click');
+        });
     }
 
     function renderNotifications() {
@@ -169,26 +201,6 @@
             'vazno': '⭐'
         };
         return icons[subjekt] || 'ℹ️';
-    }
-
-    function setupEventDelegation(modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target.closest('.mark-read-btn')) {
-                e.preventDefault();
-                e.stopPropagation();
-                const btn = e.target.closest('.mark-read-btn');
-                const id = btn.getAttribute('data-id');
-                markAsRead(id);
-            }
-
-            if (e.target.closest('.delete-btn')) {
-                e.preventDefault();
-                e.stopPropagation();
-                const btn = e.target.closest('.delete-btn');
-                const id = btn.getAttribute('data-id');
-                deleteNotification(id);
-            }
-        });
     }
 
     function closeModal() {
