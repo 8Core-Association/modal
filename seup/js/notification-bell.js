@@ -100,64 +100,64 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
         `;
 
         document.body.appendChild(modal);
-        console.log('✅ Modal appended to body');
 
         setTimeout(() => modal.classList.add('show'), 10);
 
-        console.log('🎯 Binding event listener to modal...');
-        modal.addEventListener('click', function(e) {
-            console.log('🔔 Modal clicked:', e.target);
+        const closeBtn = modal.querySelector('.seup-notification-close');
+        const overlay = modal.querySelector('.seup-notification-modal-overlay');
+        const markAllBtn = modal.querySelector('#markAllRead');
+        const deleteAllBtn = modal.querySelector('#deleteAll');
 
-            const closeBtn = e.target.closest('.seup-notification-close');
-            const overlay = e.target.classList.contains('seup-notification-modal-overlay');
-            const markAllBtn = e.target.closest('#markAllRead');
-            const deleteAllBtn = e.target.closest('#deleteAll');
-            const markReadBtn = e.target.closest('.mark-read-btn');
-            const deleteBtn = e.target.closest('.delete-btn');
-
-            if (closeBtn || overlay) {
-                console.log('✅ Close button or overlay clicked');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 closeModal();
-                return;
-            }
+            });
+        }
 
-            if (markAllBtn) {
-                console.log('✅ Mark All Read clicked');
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal();
+            });
+        }
+
+        if (markAllBtn) {
+            markAllBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 markAllAsRead();
-                return;
-            }
+            });
+        }
 
-            if (deleteAllBtn) {
-                console.log('✅ Delete All clicked');
+        if (deleteAllBtn) {
+            deleteAllBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 deleteAllNotifications();
-                return;
-            }
+            });
+        }
 
-            if (markReadBtn) {
-                console.log('✅ Mark Read clicked, ID:', markReadBtn.getAttribute('data-id'));
+        const markReadButtons = modal.querySelectorAll('.mark-read-btn');
+        markReadButtons.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                const id = markReadBtn.getAttribute('data-id');
+                const id = this.getAttribute('data-id');
                 markAsRead(id);
-                return;
-            }
+            });
+        });
 
-            if (deleteBtn) {
-                console.log('✅ Delete clicked, ID:', deleteBtn.getAttribute('data-id'));
+        const deleteButtons = modal.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                const id = deleteBtn.getAttribute('data-id');
+                const id = this.getAttribute('data-id');
                 deleteNotification(id);
-                return;
-            }
-
-            console.log('⚠️ No handler matched for click');
+            });
         });
     }
 
