@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obavjesti - 8core Dokumentacija</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://8core.hr/wp-content/uploads/2025/05/8core_header.webp" alt="8core Logo">
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="upute.html"><i class="fas fa-book"></i> Upute</a></li>
+                        <li><a href="obavjesti.html" class="active"><i class="fas fa-bell"></i> Obavjesti</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-bell"></i> Obavjesti i nadogradnje</h1>
+                <p>Budite u tijeku sa najnovijim vijestima, ažuriranjima i važnim obavijestima</p>
+            </div>
+
+            <div class="notifications-container">
+                <div class="notification-filters">
+                    <button class="filter-btn active" data-filter="all">Sve</button>
+                    <button class="filter-btn" data-filter="info">Info</button>
+                    <button class="filter-btn" data-filter="warning">Upozorenje</button>
+                    <button class="filter-btn" data-filter="upgrade">Nadogradnja</button>
+                    <button class="filter-btn" data-filter="important">Važno</button>
+                </div>
+
+                <div class="notifications-list">
+                    <div class="notification-item" data-type="upgrade">
+                        <div class="notification-icon upgrade">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3>SEUP v5.0.0 - Sustav obavjesti</h3>
+                                <span class="notification-date">01.12.2025</span>
+                            </div>
+                            <p>Objavljena nova major verzija SEUP modula sa potpuno novim sustavom obavjesti. Uključuje notification bell, admin modul za upravljanje i real-time praćenje.</p>
+                            <div class="notification-meta">
+                                <span class="tag upgrade">Nadogradnja</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item" data-type="info">
+                        <div class="notification-icon info">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3>Ažurirane upute za Nextcloud integraciju</h3>
+                                <span class="notification-date">28.11.2025</span>
+                            </div>
+                            <p>Dodane detaljne upute za konfiguraciju Nextcloud API-ja i generiranje App Password-a. Provjerite stranicu Upute za više informacija.</p>
+                            <div class="notification-meta">
+                                <span class="tag info">Info</span>
+                                <a href="upute.html#integracije" class="notification-link">Pogledaj upute</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item" data-type="important">
+                        <div class="notification-icon important">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3>Sigurnosni update - obavezna nadogradnja</h3>
+                                <span class="notification-date">25.11.2025</span>
+                            </div>
+                            <p>Objavljen kritičan sigurnosni patch za sve 8core module. Molimo nadogradite što prije kako biste osigurali zaštitu vašeg sustava.</p>
+                            <div class="notification-meta">
+                                <span class="tag important">Važno</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item" data-type="warning">
+                        <div class="notification-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3>Planirano održavanje 15.12.2025</h3>
+                                <span class="notification-date">20.11.2025</span>
+                            </div>
+                            <p>Dana 15.12.2025 između 02:00 i 04:00 bit će provedeno planirano održavanje servera. Očekujte kratke prekide u dostupnosti usluge.</p>
+                            <div class="notification-meta">
+                                <span class="tag warning">Upozorenje</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item" data-type="info">
+                        <div class="notification-icon info">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3>Nova dokumentacija za OMAT generator</h3>
+                                <span class="notification-date">15.11.2025</span>
+                            </div>
+                            <p>Dodana kompletna dokumentacija za konfiguraciju i korištenje OMAT generatora brojeva dokumenata.</p>
+                            <div class="notification-meta">
+                                <span class="tag info">Info</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notification-item" data-type="upgrade">
+                        <div class="notification-icon upgrade">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3>SEUP v4.2.6 - Database Auto-initialization</h3>
+                                <span class="notification-date">27.11.2025</span>
+                            </div>
+                            <p>Poboljšano automatsko kreiranje baze podataka sa FOREIGN KEY constraintima. Tablice se automatski kreiraju pri prvom učitavanju.</p>
+                            <div class="notification-meta">
+                                <span class="tag upgrade">Nadogradnja</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 8core. Sva prava pridržana.</p>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 48px;
+        }
+
+        .page-header h1 {
+            font-size: 40px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        .notifications-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .notification-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
+            background: var(--white);
+            color: var(--text-dark);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .notifications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .notification-item {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            transition: all 0.2s;
+        }
+
+        .notification-item:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .notification-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-icon i {
+            font-size: 24px;
+            color: var(--white);
+        }
+
+        .notification-icon.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .notification-icon.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .notification-icon.upgrade {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .notification-icon.important {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 16px;
+        }
+
+        .notification-header h3 {
+            font-size: 18px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .notification-date {
+            font-size: 14px;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .notification-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .notification-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .tag.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag.upgrade {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag.important {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .notification-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .notification-link:hover {
+            text-decoration: underline;
+        }
+
+        nav a.active {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .notification-item {
+                flex-direction: column;
+            }
+
+            .notification-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .filter-btn {
+                flex: 1;
+                min-width: calc(50% - 6px);
+            }
+        }
+    </style>
+
+    <script>
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const notificationItems = document.querySelectorAll('.notification-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                notificationItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.type === filter) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

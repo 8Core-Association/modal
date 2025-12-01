@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upute - 8core Dokumentacija</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://8core.hr/wp-content/uploads/2025/05/8core_header.webp" alt="8core Logo">
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="upute.html" class="active"><i class="fas fa-book"></i> Upute</a></li>
+                        <li><a href="obavjesti.html"><i class="fas fa-bell"></i> Obavjesti</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-book-open"></i> Upute i dokumentacija</h1>
+                <p>Sve što trebate znati o korištenju 8core sustava</p>
+            </div>
+
+            <div class="content-layout">
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>Kategorije</h3>
+                        <ul class="sidebar-menu">
+                            <li><a href="#seup" class="active"><i class="fas fa-folder-open"></i> SEUP Modul</a></li>
+                            <li><a href="#instalacija"><i class="fas fa-download"></i> Instalacija</a></li>
+                            <li><a href="#konfiguracija"><i class="fas fa-cog"></i> Konfiguracija</a></li>
+                            <li><a href="#integracije"><i class="fas fa-plug"></i> Integracije</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="content-main">
+                    <section id="seup" class="doc-section">
+                        <h2>SEUP Modul</h2>
+                        <p>Sustav elektroničkog uredskog poslovanja omogućava potpunu digitalnu evidenciju dokumenata.</p>
+
+                        <div class="doc-card">
+                            <h3><i class="fas fa-rocket"></i> Brzi početak</h3>
+                            <ol>
+                                <li>Aktivirajte SEUP modul u Dolibarr administraciji</li>
+                                <li>Konfigurirajte oznake ustanove u postavkama</li>
+                                <li>Definirajte klasifikacijske oznake</li>
+                                <li>Kreirajte prvi predmet</li>
+                            </ol>
+                        </div>
+
+                        <div class="doc-card">
+                            <h3><i class="fas fa-file-alt"></i> Rad s predmetima</h3>
+                            <p>Predmeti su osnovne jedinice evidencije u SEUP sustavu. Svaki predmet može sadržavati:</p>
+                            <ul>
+                                <li>Osnovne podatke (naslov, opis, klasifikacija)</li>
+                                <li>Akte i priloge</li>
+                                <li>Zaprimanja i otpreme</li>
+                                <li>Suradnike i tagove</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="instalacija" class="doc-section">
+                        <h2>Instalacija</h2>
+
+                        <div class="doc-card">
+                            <h3><i class="fas fa-server"></i> Sistemski zahtjevi</h3>
+                            <ul>
+                                <li>PHP 7.4 ili noviji</li>
+                                <li>MySQL 5.7 ili MariaDB 10.3+</li>
+                                <li>Dolibarr 15.0 ili noviji</li>
+                                <li>Apache/Nginx web server</li>
+                            </ul>
+                        </div>
+
+                        <div class="doc-card">
+                            <h3><i class="fas fa-terminal"></i> Postupak instalacije</h3>
+                            <pre><code>1. Raspakujte modul u htdocs/custom/seup
+2. Prijavite se kao administrator
+3. Idite na Home → Setup → Modules
+4. Pronađite SEUP i kliknite "Activate"
+5. Konfigurirajte postavke u Setup → Modules → SEUP</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="konfiguracija" class="doc-section">
+                        <h2>Konfiguracija</h2>
+
+                        <div class="doc-card">
+                            <h3><i class="fas fa-sliders-h"></i> Osnovne postavke</h3>
+                            <p>U postavkama modula možete konfigurirati:</p>
+                            <ul>
+                                <li>Oznaku ustanove (OMAT)</li>
+                                <li>Internu oznaku korisnika</li>
+                                <li>Nextcloud integraciju</li>
+                                <li>Šablone dokumenata</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="integracije" class="doc-section">
+                        <h2>Integracije</h2>
+
+                        <div class="doc-card">
+                            <h3><i class="fas fa-cloud"></i> Nextcloud</h3>
+                            <p>SEUP se može integrirati s Nextcloud cloud sustavom za skladištenje dokumenata.</p>
+                            <p><strong>Upute za konfiguraciju:</strong></p>
+                            <ol>
+                                <li>Unesite Nextcloud URL</li>
+                                <li>Generirajte App Password</li>
+                                <li>Testirajte konekciju</li>
+                            </ol>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 8core. Sva prava pridržana.</p>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 48px;
+        }
+
+        .page-header h1 {
+            font-size: 40px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 48px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: var(--bg-light);
+            color: var(--primary-color);
+        }
+
+        .doc-section {
+            margin-bottom: 64px;
+        }
+
+        .doc-section h2 {
+            font-size: 32px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .doc-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .doc-card h3 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .doc-card h3 i {
+            color: var(--primary-color);
+        }
+
+        .doc-card ul,
+        .doc-card ol {
+            margin-left: 24px;
+            color: var(--text-light);
+        }
+
+        .doc-card li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .doc-card pre {
+            background: var(--bg-light);
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+
+        .doc-card code {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        nav a.active {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</body>
+</html>
