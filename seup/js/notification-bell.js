@@ -11,6 +11,11 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
 
     let notificationsData = [];
 
+    function getAjaxUrl(action) {
+        const baseUrl = window.location.origin + window.location.pathname.split('/custom/')[0];
+        return baseUrl + '/custom/seup/class/obavjesti_ajax.php?action=' + action;
+    }
+
     function initNotificationBell() {
         const bell = document.getElementById('seupNotificationBell');
         const badge = document.getElementById('notificationCount');
@@ -223,7 +228,8 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     }
 
     function loadNotifications() {
-        fetch('/custom/seup/class/obavjesti_ajax.php?action=get_notifications')
+        const ajaxUrl = getAjaxUrl('get_notifications');
+        fetch(ajaxUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -237,7 +243,8 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     }
 
     function markAsRead(id) {
-        fetch('/custom/seup/class/obavjesti_ajax.php?action=mark_read&id=' + id)
+        const ajaxUrl = getAjaxUrl('mark_read') + '&id=' + id;
+        fetch(ajaxUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -266,7 +273,8 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     function markAllAsRead() {
         if (!confirm('Označiti sve obavjesti kao pročitane?')) return;
 
-        fetch('/custom/seup/class/obavjesti_ajax.php?action=mark_all_read')
+        const ajaxUrl = getAjaxUrl('mark_all_read');
+        fetch(ajaxUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -282,7 +290,8 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     function deleteNotification(id) {
         if (!confirm('Obrisati ovu obavjest?')) return;
 
-        fetch('/custom/seup/class/obavjesti_ajax.php?action=delete&id=' + id)
+        const ajaxUrl = getAjaxUrl('delete') + '&id=' + id;
+        fetch(ajaxUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -311,7 +320,8 @@ console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
     function deleteAllNotifications() {
         if (!confirm('Obrisati SVE obavjesti? Ova akcija se ne može poništiti.')) return;
 
-        fetch('/custom/seup/class/obavjesti_ajax.php?action=delete_all')
+        const ajaxUrl = getAjaxUrl('delete_all');
+        fetch(ajaxUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
