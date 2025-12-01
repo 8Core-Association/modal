@@ -94,7 +94,7 @@
         modal.querySelector('#markAllRead').addEventListener('click', markAllAsRead);
         modal.querySelector('#deleteAll').addEventListener('click', deleteAllNotifications);
 
-        attachNotificationActions();
+        setupEventDelegation(modal);
     }
 
     function renderNotifications() {
@@ -123,7 +123,7 @@
                     <p class="seup-notification-content">${escapeHtml(notification.sadrzaj)}</p>
                     ${notification.vanjski_link ? `
                         <div class="seup-notification-link">
-                            <a href="${escapeHtml(notification.vanjski_link)}" target="_blank">
+                            <a href="${notification.vanjski_link}" target="_blank" rel="noopener noreferrer">
                                 <i class="fas fa-external-link-alt"></i> Više informacija
                             </a>
                         </div>
@@ -155,19 +155,23 @@
         return icons[subjekt] || 'ℹ️';
     }
 
-    function attachNotificationActions() {
-        document.querySelectorAll('.mark-read-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
+    function setupEventDelegation(modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target.closest('.mark-read-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const btn = e.target.closest('.mark-read-btn');
+                const id = btn.getAttribute('data-id');
                 markAsRead(id);
-            });
-        });
+            }
 
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
+            if (e.target.closest('.delete-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const btn = e.target.closest('.delete-btn');
+                const id = btn.getAttribute('data-id');
                 deleteNotification(id);
-            });
+            }
         });
     }
 
@@ -200,13 +204,15 @@
                 if (data.success) {
                     const item = document.querySelector(`.seup-notification-item[data-id="${id}"]`);
                     if (item) {
-                        item.style.opacity = '0.5';
+                        item.style.transition = 'opacity 0.3s ease';
+                        item.style.opacity = '0';
                         setTimeout(() => {
                             item.remove();
                             loadNotifications();
 
                             const listContainer = document.getElementById('notificationsList');
-                            if (listContainer && notificationsData.length === 1) {
+                            const remainingItems = listContainer.querySelectorAll('.seup-notification-item');
+                            if (remainingItems.length === 0) {
                                 listContainer.innerHTML = renderNotifications();
                             }
                         }, 300);
@@ -243,13 +249,15 @@
                 if (data.success) {
                     const item = document.querySelector(`.seup-notification-item[data-id="${id}"]`);
                     if (item) {
-                        item.style.opacity = '0.5';
+                        item.style.transition = 'opacity 0.3s ease';
+                        item.style.opacity = '0';
                         setTimeout(() => {
                             item.remove();
                             loadNotifications();
 
                             const listContainer = document.getElementById('notificationsList');
-                            if (listContainer && notificationsData.length === 1) {
+                            const remainingItems = listContainer.querySelectorAll('.seup-notification-item');
+                            if (remainingItems.length === 0) {
                                 listContainer.innerHTML = renderNotifications();
                             }
                         }, 300);

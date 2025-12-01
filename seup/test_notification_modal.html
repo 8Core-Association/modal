@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Notification Modal - Event Delegation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/notification-bell.css">
+    <link rel="stylesheet" href="css/obavjesti.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            border-bottom: 3px solid #4f46e5;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #4f46e5;
+            border-radius: 5px;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .info {
+            background: #e0f2fe;
+            padding: 15px;
+            border-left: 4px solid #0284c7;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        button.test-btn {
+            background: #4f46e5;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button.test-btn:hover {
+            background: #3730a3;
+        }
+        .console-output {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .console-line {
+            margin: 5px 0;
+        }
+        .console-success {
+            color: #4ade80;
+        }
+        .console-error {
+            color: #f87171;
+        }
+        .console-info {
+            color: #60a5fa;
+        }
+        #seupNotificationBell {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🔔 Notification Bell Modal - Event Delegation Test</h1>
+            <p>Test suite za verifikaciju funkcionalnosti notification bell modala</p>
+        </div>
+
+        <div class="info">
+            <strong>ℹ️ Informacija:</strong> Ovaj test simulira notification bell funkcionalnost sa mock podacima.
+            Svi AJAX pozivi su zamijenjeni sa simulacijama.
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Test Scenariji</h2>
+            <button class="test-btn" onclick="testScenario1()">
+                <i class="fas fa-play"></i> Test 1: Označi pojedinačnu obavjest pročitanom
+            </button>
+            <button class="test-btn" onclick="testScenario2()">
+                <i class="fas fa-play"></i> Test 2: Obriši pojedinačnu obavjest
+            </button>
+            <button class="test-btn" onclick="testScenario3()">
+                <i class="fas fa-play"></i> Test 3: Označi sve pročitanima
+            </button>
+            <button class="test-btn" onclick="testScenario4()">
+                <i class="fas fa-play"></i> Test 4: Obriši sve obavjesti
+            </button>
+            <button class="test-btn" onclick="testScenario5()">
+                <i class="fas fa-play"></i> Test 5: Vanjski link funkcionira
+            </button>
+            <button class="test-btn" onclick="resetNotifications()">
+                <i class="fas fa-sync"></i> Reset Test Data
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Console Output</h2>
+            <div id="consoleOutput" class="console-output">
+                <div class="console-line console-info">Waiting for test execution...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Test Results</h2>
+            <div id="testResults">
+                <p>Klikni na test dugmad gore za pokretanje testova.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Bell (fiksirano u gornjem desnom uglu) -->
+    <div id="seupNotificationBell" class="seup-notification-bell">
+        <div class="bell-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <span id="notificationCount" class="notification-badge" style="display: none;">0</span>
+    </div>
+
+    <script>
+        // Console output helper
+        function logToConsole(message, type = 'info') {
+            const consoleOutput = document.getElementById('consoleOutput');
+            const line = document.createElement('div');
+            line.className = `console-line console-${type}`;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleOutput.appendChild(line);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        // Test results helper
+        function updateTestResults(testName, passed, message) {
+            const resultsDiv = document.getElementById('testResults');
+            const result = document.createElement('div');
+            result.style.padding = '10px';
+            result.style.margin = '5px 0';
+            result.style.borderLeft = passed ? '4px solid green' : '4px solid red';
+            result.style.background = passed ? '#f0fdf4' : '#fef2f2';
+            result.innerHTML = `
+                <strong>${passed ? '✅' : '❌'} ${testName}</strong><br>
+                <span style="color: #666;">${message}</span>
+            `;
+            resultsDiv.appendChild(result);
+        }
+
+        // Mock notifications data
+        let mockNotifications = [
+            {
+                id: 1,
+                naslov: 'Test Obavjest 1',
+                subjekt: 'info',
+                sadrzaj: 'Ovo je testna obavjest #1 za provjeru funkcionalnosti.',
+                vanjski_link: 'https://8core.hr',
+                datum: '01.12.2025 10:00',
+                kreirao: 'Admin User'
+            },
+            {
+                id: 2,
+                naslov: 'Test Obavjest 2',
+                subjekt: 'upozorenje',
+                sadrzaj: 'Ovo je testna obavjest #2 za provjeru funkcionalnosti.',
+                vanjski_link: null,
+                datum: '01.12.2025 11:00',
+                kreirao: 'Admin User'
+            },
+            {
+                id: 3,
+                naslov: 'Test Obavjest 3',
+                subjekt: 'vazno',
+                sadrzaj: 'Ovo je testna obavjest #3 za provjeru funkcionalnosti.',
+                vanjski_link: 'https://github.com',
+                datum: '01.12.2025 12:00',
+                kreirao: 'Admin User'
+            }
+        ];
+
+        // Override fetch to use mock data
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options) {
+            logToConsole(`AJAX Call: ${url}`, 'info');
+
+            if (url.includes('action=get_notifications')) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({
+                        success: true,
+                        count: mockNotifications.length,
+                        notifications: mockNotifications
+                    })
+                });
+            }
+
+            if (url.includes('action=mark_read')) {
+                const id = parseInt(url.match(/id=(\d+)/)[1]);
+                logToConsole(`Marking notification ${id} as read`, 'success');
+                mockNotifications = mockNotifications.filter(n => n.id !== id);
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({ success: true })
+                });
+            }
+
+            if (url.includes('action=delete')) {
+                const id = parseInt(url.match(/id=(\d+)/)[1]);
+                logToConsole(`Deleting notification ${id}`, 'success');
+                mockNotifications = mockNotifications.filter(n => n.id !== id);
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({ success: true })
+                });
+            }
+
+            if (url.includes('action=mark_all_read')) {
+                logToConsole('Marking all notifications as read', 'success');
+                mockNotifications = [];
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({ success: true })
+                });
+            }
+
+            if (url.includes('action=delete_all')) {
+                logToConsole('Deleting all notifications', 'success');
+                mockNotifications = [];
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({ success: true })
+                });
+            }
+
+            return originalFetch(url, options);
+        };
+
+        // Test scenarios
+        function testScenario1() {
+            logToConsole('▶ Starting Test 1: Mark single notification as read', 'info');
+            resetNotifications();
+            setTimeout(() => {
+                document.getElementById('seupNotificationBell').click();
+                setTimeout(() => {
+                    const firstBtn = document.querySelector('.mark-read-btn');
+                    if (firstBtn) {
+                        firstBtn.click();
+                        setTimeout(() => {
+                            const remaining = document.querySelectorAll('.seup-notification-item').length;
+                            const passed = remaining === 2;
+                            updateTestResults('Test 1', passed,
+                                passed ? 'Obavjest uspješno označena kao pročitana' : 'Obavjest nije uklonjena iz liste');
+                        }, 500);
+                    }
+                }, 100);
+            }, 100);
+        }
+
+        function testScenario2() {
+            logToConsole('▶ Starting Test 2: Delete single notification', 'info');
+            resetNotifications();
+            setTimeout(() => {
+                document.getElementById('seupNotificationBell').click();
+                setTimeout(() => {
+                    const deleteBtn = document.querySelector('.delete-btn');
+                    if (deleteBtn) {
+                        window.confirm = () => true;
+                        deleteBtn.click();
+                        setTimeout(() => {
+                            const remaining = document.querySelectorAll('.seup-notification-item').length;
+                            const passed = remaining === 2;
+                            updateTestResults('Test 2', passed,
+                                passed ? 'Obavjest uspješno obrisana' : 'Obavjest nije uklonjena iz liste');
+                        }, 500);
+                    }
+                }, 100);
+            }, 100);
+        }
+
+        function testScenario3() {
+            logToConsole('▶ Starting Test 3: Mark all as read', 'info');
+            resetNotifications();
+            setTimeout(() => {
+                document.getElementById('seupNotificationBell').click();
+                setTimeout(() => {
+                    window.confirm = () => true;
+                    document.getElementById('markAllRead').click();
+                    setTimeout(() => {
+                        const badge = document.getElementById('notificationCount');
+                        const passed = badge.style.display === 'none' || badge.textContent === '0';
+                        updateTestResults('Test 3', passed,
+                            passed ? 'Sve obavjesti uspješno označene' : 'Badge nije resetiran');
+                    }, 500);
+                }, 100);
+            }, 100);
+        }
+
+        function testScenario4() {
+            logToConsole('▶ Starting Test 4: Delete all notifications', 'info');
+            resetNotifications();
+            setTimeout(() => {
+                document.getElementById('seupNotificationBell').click();
+                setTimeout(() => {
+                    window.confirm = () => true;
+                    document.getElementById('deleteAll').click();
+                    setTimeout(() => {
+                        const badge = document.getElementById('notificationCount');
+                        const passed = badge.style.display === 'none' || badge.textContent === '0';
+                        updateTestResults('Test 4', passed,
+                            passed ? 'Sve obavjesti uspješno obrisane' : 'Badge nije resetiran');
+                    }, 500);
+                }, 100);
+            }, 100);
+        }
+
+        function testScenario5() {
+            logToConsole('▶ Starting Test 5: External link functionality', 'info');
+            resetNotifications();
+            setTimeout(() => {
+                document.getElementById('seupNotificationBell').click();
+                setTimeout(() => {
+                    const link = document.querySelector('.seup-notification-link a');
+                    if (link) {
+                        const passed = link.href && link.target === '_blank';
+                        updateTestResults('Test 5', passed,
+                            passed ? `Link pronađen: ${link.href}` : 'Link ne postoji ili nije ispravno konfiguriran');
+                    } else {
+                        updateTestResults('Test 5', false, 'Link element nije pronađen');
+                    }
+                }, 100);
+            }, 100);
+        }
+
+        function resetNotifications() {
+            mockNotifications = [
+                {
+                    id: 1,
+                    naslov: 'Test Obavjest 1',
+                    subjekt: 'info',
+                    sadrzaj: 'Ovo je testna obavjest #1 za provjeru funkcionalnosti.',
+                    vanjski_link: 'https://8core.hr',
+                    datum: '01.12.2025 10:00',
+                    kreirao: 'Admin User'
+                },
+                {
+                    id: 2,
+                    naslov: 'Test Obavjest 2',
+                    subjekt: 'upozorenje',
+                    sadrzaj: 'Ovo je testna obavjest #2 za provjeru funkcionalnosti.',
+                    vanjski_link: null,
+                    datum: '01.12.2025 11:00',
+                    kreirao: 'Admin User'
+                },
+                {
+                    id: 3,
+                    naslov: 'Test Obavjest 3',
+                    subjekt: 'vazno',
+                    sadrzaj: 'Ovo je testna obavjest #3 za provjeru funkcionalnosti.',
+                    vanjski_link: 'https://github.com',
+                    datum: '01.12.2025 12:00',
+                    kreirao: 'Admin User'
+                }
+            ];
+
+            const modal = document.getElementById('seupNotificationModal');
+            if (modal) modal.remove();
+
+            logToConsole('Test data reset', 'success');
+
+            if (window.location.reload) {
+                setTimeout(() => location.reload(), 100);
+            }
+        }
+
+        // Initialize on page load
+        logToConsole('Test page loaded', 'success');
+        logToConsole('Mock notifications count: ' + mockNotifications.length, 'info');
+    </script>
+
+    <!-- Load the actual notification-bell.js -->
+    <script src="js/notification-bell.js"></script>
+</body>
+</html>
