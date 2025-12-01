@@ -273,8 +273,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.3);
     z-index: 99997;
+    cursor: pointer;
 }
 
 .seup-notification-modal-content {
@@ -286,6 +287,8 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    z-index: 99999;
+    pointer-events: all;
 }
 
 .seup-notification-modal-header {
@@ -414,6 +417,10 @@
     color: #0066cc;
     text-decoration: none;
     font-size: 14px;
+    cursor: pointer;
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
 }
 
 .seup-notification-link a:hover {
@@ -467,6 +474,9 @@
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
 }
 
 .seup-btn-xs {
