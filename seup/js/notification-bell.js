@@ -1,7 +1,10 @@
 /**
  * SEUP Notification Bell - Žuto kričavo zvono
  * (c) 2025 8Core Association
+ * VERSION: 2.0.0-DEBUG
  */
+
+console.log('🚀 notification-bell.js VERSION 2.0.0-DEBUG loaded!');
 
 (function() {
     'use strict';

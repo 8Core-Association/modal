@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test JS Load</title>
+</head>
+<body>
+    <h1>Test JS Load</h1>
+    <p>Open Console (F12) - You should see VERSION 2.0.0-DEBUG loaded!</p>
+
+    <button id="testButton" style="padding: 20px; font-size: 20px; background: yellow;">
+        Click Me to Test
+    </button>
+
+    <script>
+        console.log('🧪 Test HTML loaded');
+
+        document.getElementById('testButton').addEventListener('click', function() {
+            console.log('🧪 Test button clicked!');
+            alert('Button works!');
+        });
+    </script>
+
+    <script src="js/notification-bell.js"></script>
+
+    <script>
+        console.log('🧪 After notification-bell.js script tag');
+    </script>
+</body>
+</html>
